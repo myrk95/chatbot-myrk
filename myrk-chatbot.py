@@ -2,14 +2,12 @@ import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import AIMessage, HumanMessage
 
-# ---------------------------
-# ESTILO DE FONDO PRINCIPAL
-# ---------------------------
+
 st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(to bottom, #7ec8e3, #4aa3c0); /* Azul oceánico */
+        background: linear-gradient(to bottom, #7ec8e3, #4aa3c0); 
         color: #001f2e;
     }
     </style>
@@ -17,30 +15,24 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------------------
-# CONFIGURACIÓN DE PÁGINA
-# ---------------------------
+
 st.set_page_config(page_title="Chatbot Myrk")
 st.title("Chatbot Myrk  El Bucanero del Ciber-Mar ")
 st.markdown("Argh, grumete… soy **Myrk**, capitán de estas aguas digitales. Habla si te atreves.")
 
-# ---------------------------
-# INICIALIZAR HISTORIALES
-# ---------------------------
+
 if "conversaciones" not in st.session_state:
     st.session_state.conversaciones = [[]]
 if "conversacion_activa" not in st.session_state:
     st.session_state.conversacion_activa = 0
 
-# ---------------------------
-# MENÚ LATERAL
-# ---------------------------
+
 with st.sidebar:
     st.header("Ajustes del Navío")
     temperatura = st.slider("Temperatura (bravura del mar)", 0.0, 1.5, 0.7, 0.1)
     modelo = st.selectbox(
         "Modelo del Oráculo del Kraken",
-        ["gemini-2.5-flash", "gemini-1.5-flash"],
+        ["gemini-2.5-flash", "gemini-2.0flash"],
         index=0
     )
 
@@ -73,7 +65,7 @@ with st.sidebar:
         )
         st.session_state.conversacion_activa = conv_index
 
-    # Historial coloreado
+    
     st.header("Registros del Viaje")
     for msg in st.session_state.conversaciones[st.session_state.conversacion_activa]:
         if isinstance(msg, HumanMessage):
@@ -89,21 +81,18 @@ with st.sidebar:
                 unsafe_allow_html=True
             )
 
-# ---------------------------
-# CREAR INSTANCIA DEL MODELO
-# ---------------------------
+
+
 chat_model = ChatGoogleGenerativeAI(
     model=modelo,
     temperature=temperatura
 )
 
-# ---------------------------
-# INPUT DEL USUARIO
-# ---------------------------
+
 pregunta = st.chat_input("¡Habla, grumete!")
 
 if pregunta:
-    # Guardar mensaje del usuario
+
     st.session_state.conversaciones[st.session_state.conversacion_activa].append(
         HumanMessage(content=pregunta)
     )
@@ -114,32 +103,31 @@ if pregunta:
             unsafe_allow_html=True
         )
 
-    # Preparar historial
+    
     historial_formateado = [
         {"role": "user", "content": m.content} if isinstance(m, HumanMessage)
         else {"role": "assistant", "content": m.content}
         for m in st.session_state.conversaciones[st.session_state.conversacion_activa]
     ]
 
-    # Obtener respuesta
+    
     respuesta = chat_model.invoke(historial_formateado)
 
-    # ----------- ESTILO PIRATA TOTAL -----------
+    
     respuesta_formateada = (
         "🏴‍☠️ **Argh, escucha bien grumete…**<br>"
         "Los vientos del mar, el canto del Kraken y el ron del capitán traen esta respuesta pa’ tus oídos:<br><br>"
         f"🦜 {respuesta.content}"
     )
-    # --------------------------------------------
 
-    # Mostrar respuesta
+
     with st.chat_message("assistant"):
         st.markdown(
             f"<div style='background-color:#ffe7c2; padding:8px; border-radius:10px;'>{respuesta_formateada}</div>",
             unsafe_allow_html=True
         )
 
-    # Guardar respuesta
+
     st.session_state.conversaciones[st.session_state.conversacion_activa].append(
         AIMessage(content=respuesta_formateada)
     )
