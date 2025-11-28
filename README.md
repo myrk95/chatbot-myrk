@@ -14,17 +14,23 @@ Chatbot creado con Streamlit y Google Gemini. Todas las respuestas se dan en ton
 
 Clonar el repositorio:
 
+git clone https://github.com/tu_usuario/chatbot-myrk.git
+
+cd chatbot-myrk
 
 Instalar dependencias:
 
+pip install -r requirements.txt
 
 Configurar la API key:
 
 Linux / macOS:
 
+export GOOGLE_API_KEY="TU_API_KEY"
 
 Windows PowerShell:
 
+setx GOOGLE_API_KEY "TU_API_KEY"
 
 ## Ejecución
 
@@ -46,8 +52,14 @@ La aplicación se abrirá en el navegador.
 
 El efecto pirata se controla en esta parte del código:
 
+respuesta_formateada = (
+"Argh, grumete, escucha bien... Las mareas me traen esta respuesta:\n\n"
+f"{respuesta.content}"
+)
+
 
 Puedes editar ese texto para cambiar el estilo pirata cuando quieras.
+
 
 ## Estructura del proyecto
 
