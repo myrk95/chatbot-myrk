@@ -22,7 +22,7 @@ st.markdown(
 # ---------------------------
 st.set_page_config(page_title="Chatbot Myrk")
 st.title("Chatbot Myrk")
-st.markdown("Holi , soy Myrk, tu asistente virtual")
+st.markdown("Holi, soy Myrk, tu asistente virtual")
 
 # ---------------------------
 # INICIALIZAR HISTORIALES
@@ -71,7 +71,7 @@ with st.sidebar:
         st.session_state.conversacion_activa = conv_index
 
     # Historial coloreado de la conversación activa
-    st.header("📜 Historial de conversación")
+    st.header("Historial de conversación")
     for msg in st.session_state.conversaciones[st.session_state.conversacion_activa]:
         if isinstance(msg, HumanMessage):
             st.markdown(
@@ -111,9 +111,17 @@ if pregunta:
     # Obtener respuesta
     respuesta = chat_model.invoke(historial_formateado)
 
+    # Formatear respuesta con estilo "olas"
+    respuesta_formateada = f"Oyes… las olas te traen esta respuesta:<br><br>{respuesta.content}"
+
     # Mostrar respuesta
     with st.chat_message("assistant"):
-        st.markdown(f"<div style='background-color:#F4E1C1; padding:8px; border-radius:10px;'>{respuesta.content}</div>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div style='background-color:#F4E1C1; padding:8px; border-radius:10px;'>{respuesta_formateada}</div>",
+            unsafe_allow_html=True
+        )
 
-    # Guardar respuesta
-    st.session_state.conversaciones[st.session_state.conversacion_activa].append(AIMessage(content=respuesta.content))
+    # Guardar respuesta formateada
+    st.session_state.conversaciones[st.session_state.conversacion_activa].append(
+        AIMessage(content=respuesta_formateada)
+    )
