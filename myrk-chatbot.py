@@ -31,9 +31,18 @@ with st.sidebar:
     st.header("Ajustes del Navío")
     temperatura = st.slider("Temperatura (bravura del mar)", 0.0, 1.5, 0.7, 0.1)
     modelo = st.selectbox(
-        "Modelo del Oráculo del Kraken",
-        ["gemini-2.5-flash", "gemini-2-flash"],
-        index=0
+        "Oráculo del Kraken",
+        [
+            "gemini-2.5-flash",
+            "gemini-2.5-flash-lite",
+            "gemini-2.5-flash-thinking",
+            "gemini-2.0-flash",
+            "gemini-2.0-flash-lite",
+            "gemini-2.0-flash-thinking",
+            "gemini-2.5-pro",
+            "gemini-2.0-pro",
+            "gemini-2.0-pro-exp"
+        ], index=0
     )
 
     st.header("Herramientas del Capitán")
