@@ -32,7 +32,7 @@ with st.sidebar:
     temperatura = st.slider("Temperatura (bravura del mar)", 0.0, 1.5, 0.7, 0.1)
     modelo = st.selectbox(
         "Modelo del Oráculo del Kraken",
-        ["gemini-2.5-flash", "gemini-2.0flash"],
+        ["gemini-2.5-flash", "gemini-2-flash"],
         index=0
     )
 
