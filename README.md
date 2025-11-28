@@ -51,7 +51,7 @@ Puedes editar ese texto para cambiar el estilo pirata cuando quieras.
 
 ## Estructura del proyecto
 
-chatbot-myrk/
-streamlit_paso2.py
-requirements.txt
-README.md
+- chatbot-myrk/
+- streamlit_paso2.py
+- requirements.txt
+- README.md
